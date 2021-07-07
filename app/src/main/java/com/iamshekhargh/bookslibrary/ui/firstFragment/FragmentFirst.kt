@@ -5,9 +5,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.iamshekhargh.bookslibrary.R
 import com.iamshekhargh.bookslibrary.databinding.FragmentFirstBinding
+import kotlinx.android.synthetic.main.fragment_add_product.*
 import kotlinx.coroutines.flow.collect
 
 /**
@@ -24,11 +26,24 @@ class FragmentFirst : Fragment(R.layout.fragment_first) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentFirstBinding.bind(view)
 
-        binding.apply { }
+        binding.apply {
+            fragmentfirstAddProduct.setOnClickListener {
+                viewModel.addProductClicked()
+//                openAddProductFragment()
+
+            }
+
+            fragmentfirstSyncProduct.setOnClickListener {
+
+            }
+        }
+
+
 
         setupEvents()
 
     }
+
 
     private fun setupEvents() {
         lifecycleScope.launchWhenStarted {
@@ -36,6 +51,9 @@ class FragmentFirst : Fragment(R.layout.fragment_first) {
                 when (event) {
                     is FirstFragEvents.ShowSnackBar -> {
                         showSnackbar(event.text)
+                    }
+                    FirstFragEvents.OpenAddProductFrag -> {
+                        openAddProductFragment()
                     }
                 }
 
@@ -45,5 +63,10 @@ class FragmentFirst : Fragment(R.layout.fragment_first) {
 
     private fun showSnackbar(text: String) {
         Snackbar.make(requireView(), text, Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun openAddProductFragment() {
+        val direction = FragmentFirstDirections.actionFragmentFirstToFragmentAddProduct()
+        findNavController().navigate(direction)
     }
 }

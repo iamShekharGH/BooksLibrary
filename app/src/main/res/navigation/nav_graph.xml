@@ -9,5 +9,14 @@
         android:id="@+id/fragmentFirst"
         android:name="com.iamshekhargh.bookslibrary.ui.firstFragment.FragmentFirst"
         android:label="fragment_first"
-        tools:layout="@layout/fragment_first" />
+        tools:layout="@layout/fragment_first" >
+        <action
+            android:id="@+id/action_fragmentFirst_to_fragmentAddProduct"
+            app:destination="@id/fragmentAddProduct" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentAddProduct"
+        android:name="com.iamshekhargh.bookslibrary.ui.addProductFragment.FragmentAddProduct"
+        android:label="fragment_add_product"
+        tools:layout="@layout/fragment_add_product" />
 </navigation>
