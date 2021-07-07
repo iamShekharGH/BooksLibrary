@@ -4,29 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.firstFragment.FragmentFirst">
+    tools:context=".ui.booksChoose.FragmentBooksChoose">
 
     <Button
-        android:id="@+id/fragmentfirst_add_product"
+        android:id="@+id/fragment_books_choose_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Product"
         android:textSize="21sp"
-        app:layout_constraintBottom_toTopOf="@id/fragmentfirst_books"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_books_choose_sync"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/fragmentfirst_books"
+        android:id="@+id/fragment_books_choose_sync"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Books"
+        android:text="Sync Product"
         android:textSize="21sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragmentfirst_add_product" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_books_choose_add" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

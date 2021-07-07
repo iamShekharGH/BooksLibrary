@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.iamshekhargh.bookslibrary.R
 import com.iamshekhargh.bookslibrary.databinding.FragmentFirstBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_add_product.*
 import kotlinx.coroutines.flow.collect
 
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.collect
  * on 05 July 2021, Monday
  * at 10:48 PM
  */
+@AndroidEntryPoint
 class FragmentFirst : Fragment(R.layout.fragment_first) {
 
     val viewModel: FragmentFirstViewModel by viewModels()
@@ -33,7 +35,7 @@ class FragmentFirst : Fragment(R.layout.fragment_first) {
 
             }
 
-            fragmentfirstSyncProduct.setOnClickListener {
+            fragmentfirstBooks.setOnClickListener {
 
             }
         }
@@ -66,7 +68,6 @@ class FragmentFirst : Fragment(R.layout.fragment_first) {
     }
 
     private fun openAddProductFragment() {
-        val direction = FragmentFirstDirections.actionFragmentFirstToFragmentAddProduct()
-        findNavController().navigate(direction)
+
     }
 }

@@ -2,16 +2,19 @@ package com.iamshekhargh.bookslibrary.ui.firstFragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * Created by <<-- iamShekharGH -->>
  * on 05 July 2021, Monday
  * at 10:49 PM
  */
-class FragmentFirstViewModel : ViewModel() {
+@HiltViewModel
+class FragmentFirstViewModel @Inject constructor() : ViewModel() {
     private val events = Channel<FirstFragEvents>()
     val eventsAsFlow = events.receiveAsFlow()
 
