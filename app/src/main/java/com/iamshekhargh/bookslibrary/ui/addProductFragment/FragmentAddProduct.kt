@@ -50,7 +50,9 @@ class FragmentAddProduct : Fragment(R.layout.fragment_add_product) {
                         showSnackbar(event.text)
                     }
                     AddProductEvents.PopTheFragment -> {
-                        findNavController().popBackStack()
+                        val direction =
+                            FragmentAddProductDirections.actionFragmentAddProductToFragmentBooks()
+                        findNavController().navigate(direction)
                     }
                 }
             }

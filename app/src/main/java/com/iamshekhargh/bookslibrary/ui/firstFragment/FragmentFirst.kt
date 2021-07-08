@@ -10,7 +10,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.iamshekhargh.bookslibrary.R
 import com.iamshekhargh.bookslibrary.databinding.FragmentFirstBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_add_product.*
 import kotlinx.coroutines.flow.collect
 
 /**
@@ -32,22 +31,18 @@ class FragmentFirst : Fragment(R.layout.fragment_first) {
             fragmentfirstAddProduct.setOnClickListener {
                 viewModel.addProductClicked()
 //                openAddProductFragment()
-
             }
 
             fragmentfirstBooks.setOnClickListener {
-
+                viewModel.booksClicked()
             }
         }
 
-
-
-        setupEvents()
-
+        listenForEvents()
     }
 
 
-    private fun setupEvents() {
+    private fun listenForEvents() {
         lifecycleScope.launchWhenStarted {
             viewModel.eventsAsFlow.collect { event ->
                 when (event) {
@@ -56,6 +51,9 @@ class FragmentFirst : Fragment(R.layout.fragment_first) {
                     }
                     FirstFragEvents.OpenAddProductFrag -> {
                         openAddProductFragment()
+                    }
+                    FirstFragEvents.OpenBooksFragment -> {
+                        openBooksFragment()
                     }
                 }
 
@@ -67,7 +65,13 @@ class FragmentFirst : Fragment(R.layout.fragment_first) {
         Snackbar.make(requireView(), text, Snackbar.LENGTH_SHORT).show()
     }
 
-    private fun openAddProductFragment() {
+    private fun openBooksFragment() {
+        val action = FragmentFirstDirections.actionFragmentFirstToFragmentViewAllResults()
+        findNavController().navigate(action)
+    }
 
+    private fun openAddProductFragment() {
+        val action = FragmentFirstDirections.actionFragmentFirstToFragmentBooksChoose()
+        findNavController().navigate(action)
     }
 }

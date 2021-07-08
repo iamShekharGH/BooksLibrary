@@ -24,4 +24,8 @@ interface BooksDao {
     @Query("SELECT * FROM books_table")
     fun getAllBooks(): Flow<List<Book>>
 
+    @Query("SELECT * FROM books_table")
+    fun getAllBooksList(): List<Book>
+
+
 }

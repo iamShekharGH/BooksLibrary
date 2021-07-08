@@ -21,9 +21,15 @@ class FragmentFirstViewModel @Inject constructor() : ViewModel() {
     fun addProductClicked() = viewModelScope.launch {
         events.send(FirstFragEvents.OpenAddProductFrag)
     }
+
+    fun booksClicked() = viewModelScope.launch {
+        events.send(FirstFragEvents.OpenBooksFragment)
+
+    }
 }
 
 sealed class FirstFragEvents {
     data class ShowSnackBar(val text: String) : FirstFragEvents()
     object OpenAddProductFrag : FirstFragEvents()
+    object OpenBooksFragment : FirstFragEvents()
 }

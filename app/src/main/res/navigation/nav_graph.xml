@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_fragmentBooksChoose_to_fragmentAddProduct"
             app:destination="@id/fragmentAddProduct" />
+        <action
+            android:id="@+id/action_fragmentBooksChoose_to_fragmentBooks"
+            app:destination="@id/fragmentBooks" />
     </fragment>
     <fragment
         android:id="@+id/fragmentBooks"

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.iamshekhargh.bookslibrary.db.BooksDao
 import com.iamshekhargh.bookslibrary.db.BooksDatabase
+import com.iamshekhargh.bookslibrary.db.ResultDao
 import com.iamshekhargh.bookslibrary.network.ApiInterface
 import com.iamshekhargh.bookslibrary.repo.BooksRepository
 import com.iamshekhargh.bookslibrary.util.Constants
@@ -28,8 +29,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRepository(apiInterface: ApiInterface, booksDao: BooksDao) =
-        BooksRepository(apiInterface, booksDao)
+    fun provideRepository(apiInterface: ApiInterface, db: BooksDatabase) =
+        BooksRepository(apiInterface, db.getBooksDao(), db.getResultDao())
 
     // Room ----------->
     @Provides

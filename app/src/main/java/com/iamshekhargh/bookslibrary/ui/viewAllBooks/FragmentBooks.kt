@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.iamshekhargh.bookslibrary.R
 import com.iamshekhargh.bookslibrary.databinding.FragmentViewAllBooksBinding
+import com.iamshekhargh.bookslibrary.db.Book
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -21,11 +22,21 @@ class FragmentBooks : Fragment(R.layout.fragment_view_all_books) {
     val viewModel: FragmentBooksViewModel by viewModels()
     lateinit var binding: FragmentViewAllBooksBinding
 
+    lateinit var adapter: BooksAdapter
+    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentViewAllBooksBinding.bind(view)
+        adapter = BooksAdapter()
+
 
         binding.apply {
+            allResultsFragRv.adapter = adapter
+
+            viewModel.fetchFromDb()
+            viewModel.getBooksFromDB().observe(viewLifecycleOwner) { buks ->
+                adapter.submitList(buks)
+            }
 
         }
 
