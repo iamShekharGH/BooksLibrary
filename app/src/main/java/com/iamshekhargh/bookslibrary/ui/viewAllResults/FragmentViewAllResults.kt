@@ -32,6 +32,7 @@ class FragmentViewAllResults : Fragment(R.layout.fragment_view_all_results) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.setTitle("Available Books")
 
         adapter = ViewAllResultsAdapter()
         binding = FragmentViewAllResultsBinding.bind(view)

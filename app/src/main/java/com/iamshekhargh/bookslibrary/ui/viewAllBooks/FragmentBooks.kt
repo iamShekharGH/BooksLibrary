@@ -23,9 +23,11 @@ class FragmentBooks : Fragment(R.layout.fragment_view_all_books) {
     lateinit var binding: FragmentViewAllBooksBinding
 
     lateinit var adapter: BooksAdapter
-    
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.setTitle("Local Books Store")
+
         binding = FragmentViewAllBooksBinding.bind(view)
         adapter = BooksAdapter()
 

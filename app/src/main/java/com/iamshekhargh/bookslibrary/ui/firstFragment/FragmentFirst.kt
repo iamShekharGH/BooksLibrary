@@ -25,6 +25,8 @@ class FragmentFirst : Fragment(R.layout.fragment_first) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.setTitle("Books Library")
+
         binding = FragmentFirstBinding.bind(view)
 
         binding.apply {

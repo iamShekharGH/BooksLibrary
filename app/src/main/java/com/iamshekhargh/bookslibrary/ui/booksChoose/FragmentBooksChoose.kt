@@ -26,6 +26,7 @@ class FragmentBooksChoose : Fragment(R.layout.fragment_books_choose) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.setTitle("Please Choose.")
 
         binding = FragmentBooksChooseBinding.bind(view)
 

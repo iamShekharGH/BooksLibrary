@@ -25,6 +25,7 @@ class FragmentAddProduct : Fragment(R.layout.fragment_add_product) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.setTitle("Add Product")
 
         binding = FragmentAddProductBinding.bind(view)
 
