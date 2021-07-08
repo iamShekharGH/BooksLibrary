@@ -2,6 +2,7 @@ package com.iamshekhargh.bookslibrary.ui.viewAllBooks
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -37,6 +38,11 @@ class FragmentBooks : Fragment(R.layout.fragment_view_all_books) {
 
             viewModel.fetchFromDb()
             viewModel.getBooksFromDB().observe(viewLifecycleOwner) { buks ->
+                if (buks.isEmpty()) {
+                    toggleEmptyList(true)
+                } else {
+                    toggleEmptyList(false)
+                }
                 adapter.submitList(buks)
             }
 
@@ -59,5 +65,13 @@ class FragmentBooks : Fragment(R.layout.fragment_view_all_books) {
 
     private fun showSnackbar(text: String) {
         Snackbar.make(requireView(), text, Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun toggleEmptyList(empty: Boolean) {
+        binding.apply {
+            allResultsFragRv.isVisible = !empty
+            allResultsFragEmptyText.isVisible = empty
+        }
+
     }
 }

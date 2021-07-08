@@ -33,6 +33,7 @@ class FragmentViewAllResults : Fragment(R.layout.fragment_view_all_results) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.setTitle("Available Books")
+        checkInternet()
 
         adapter = ViewAllResultsAdapter()
         binding = FragmentViewAllResultsBinding.bind(view)
@@ -42,14 +43,12 @@ class FragmentViewAllResults : Fragment(R.layout.fragment_view_all_results) {
         }
 
 
-        checkInternet()
+
         listenForEvents()
         collectResult()
     }
 
     private fun collectResult() {
-//        viewModel.makeCall()
-
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.resultFlow.collect { response ->
@@ -70,7 +69,7 @@ class FragmentViewAllResults : Fragment(R.layout.fragment_view_all_results) {
 
     private fun showError(message: String?) {
         binding.apply {
-            allResultsFragRv.isVisible = false
+            allResultsFragRv.isVisible = true
             allResultsError.isVisible = true
             allResultsError.text = message
             allResultsProgressbar.isVisible = false
@@ -87,11 +86,19 @@ class FragmentViewAllResults : Fragment(R.layout.fragment_view_all_results) {
     }
 
     private fun showResult(data: List<Result>?) {
+
         adapter.submitList(data)
         binding.apply {
-            allResultsFragRv.isVisible = true
-            allResultsError.isVisible = false
-            allResultsProgressbar.isVisible = false
+            if (data.isNullOrEmpty()) {
+                allResultsFragRv.isVisible = false
+                allResultsError.isVisible = true
+                allResultsError.text = "Sorry the List is empty."
+                allResultsProgressbar.isVisible = false
+            } else {
+                allResultsFragRv.isVisible = true
+                allResultsError.isVisible = false
+                allResultsProgressbar.isVisible = false
+            }
         }
     }
 
@@ -120,28 +127,24 @@ class FragmentViewAllResults : Fragment(R.layout.fragment_view_all_results) {
                 if (capabilities != null) {
                     if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
                         Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
-                        viewModel.internetToken = false
+                        viewModel.setInternetStatus(true)
+
                     } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
                         Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
-                        viewModel.internetToken = false
+                        viewModel.setInternetStatus(true)
                     } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
                         Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
-                        viewModel.internetToken = false
+                        viewModel.setInternetStatus(true)
                     }
                 } else {
-                    viewModel.internetToken = false
+                    viewModel.setInternetStatus(false)
                 }
             } else {
-                viewModel.internetToken =
+                viewModel.setInternetStatus(
                     cm.activeNetworkInfo != null && cm.activeNetworkInfo!!.isConnected
+                )
             }
         }
-//
-//* private boolean isNetworkConnected() {
-//ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-//
-//return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
-//}
 
     }
 
