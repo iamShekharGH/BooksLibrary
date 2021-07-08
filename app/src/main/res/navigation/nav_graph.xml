@@ -9,5 +9,43 @@
         android:id="@+id/fragmentFirst"
         android:name="com.iamshekhargh.bookslibrary.ui.firstFragment.FragmentFirst"
         android:label="fragment_first"
-        tools:layout="@layout/fragment_first" />
+        tools:layout="@layout/fragment_first" >
+        <action
+            android:id="@+id/action_fragmentFirst_to_fragmentBooksChoose"
+            app:destination="@id/fragmentBooksChoose" />
+        <action
+            android:id="@+id/action_fragmentFirst_to_fragmentViewAllResults"
+            app:destination="@id/fragmentViewAllResults" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentAddProduct"
+        android:name="com.iamshekhargh.bookslibrary.ui.addProductFragment.FragmentAddProduct"
+        android:label="fragment_add_product"
+        tools:layout="@layout/fragment_add_product" >
+        <action
+            android:id="@+id/action_fragmentAddProduct_to_fragmentBooks"
+            app:destination="@id/fragmentBooks" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentBooksChoose"
+        android:name="com.iamshekhargh.bookslibrary.ui.booksChoose.FragmentBooksChoose"
+        android:label="fragment_books_choose"
+        tools:layout="@layout/fragment_books_choose" >
+        <action
+            android:id="@+id/action_fragmentBooksChoose_to_fragmentAddProduct"
+            app:destination="@id/fragmentAddProduct" />
+        <action
+            android:id="@+id/action_fragmentBooksChoose_to_fragmentBooks"
+            app:destination="@id/fragmentBooks" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentBooks"
+        android:name="com.iamshekhargh.bookslibrary.ui.viewAllBooks.FragmentBooks"
+        android:label="fragment_view_all_books"
+        tools:layout="@layout/fragment_view_all_books" />
+    <fragment
+        android:id="@+id/fragmentViewAllResults"
+        android:name="com.iamshekhargh.bookslibrary.ui.viewAllResults.FragmentViewAllResults"
+        android:label="fragment_view_all_results"
+        tools:layout="@layout/fragment_view_all_results" />
 </navigation>
