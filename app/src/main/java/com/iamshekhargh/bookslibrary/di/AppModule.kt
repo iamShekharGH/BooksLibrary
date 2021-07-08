@@ -1,7 +1,13 @@
 package com.iamshekhargh.bookslibrary.di
 
+import android.app.Application
+import androidx.room.Room
+import com.iamshekhargh.bookslibrary.db.BooksDao
+import com.iamshekhargh.bookslibrary.db.BooksDatabase
+import com.iamshekhargh.bookslibrary.db.ResultDao
 import com.iamshekhargh.bookslibrary.network.ApiInterface
 import com.iamshekhargh.bookslibrary.repo.BooksRepository
+import com.iamshekhargh.bookslibrary.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,8 +29,23 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideReposotory(apiInterface: ApiInterface) = BooksRepository(apiInterface)
+    fun provideRepository(apiInterface: ApiInterface, db: BooksDatabase) =
+        BooksRepository(apiInterface, db.getBooksDao(), db.getResultDao())
 
+    // Room ----------->
+    @Provides
+    @Singleton
+    fun providesDatabase(app: Application) =
+        Room.databaseBuilder(app, BooksDatabase::class.java, "books_table")
+            .fallbackToDestructiveMigration().build()
+
+    @Provides
+    fun providesBooksDao(database: BooksDatabase) = database.getBooksDao()
+
+    @Provides
+    fun providesResultDao(database: BooksDatabase) = database.getResultDao()
+
+    // <----------------- Room
 
     // Retrofit ----------->
     @Provides
@@ -38,11 +59,11 @@ object AppModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder().client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(ApiInterface.BASE_URL).build()
+            .baseUrl(Constants.BASE_URL).build()
 
     @Provides
     @Singleton
     fun provideGithubApi(retrofit: Retrofit) = retrofit.create(ApiInterface::class.java)
 
-    // <-------------------- Retrofit
+    // <----------------- Retrofit
 }
